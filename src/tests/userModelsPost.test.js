@@ -15,14 +15,14 @@ const { createUserService } = await import("../models/userModels.js");
 test("Insert a new user into the database", async () => {
   // simulation du comportement de la requête SQL
   pool.query.mockResolvedValue({
-    rows: [{ id: 1, name: "glenn", email: "glenn@gmail.com" }],
+    rows: [{ id: 1, name: "glenn", email: "glenn@gmail.com", role: 'user' }],
   });
 
-  const result = await createUserService("glenn", "glenn@gmail.com");
+  const result = await createUserService("glenn", "glenn@gmail.com", "user");
 
-  expect(result).toEqual({ id: 1, name: "glenn", email: "glenn@gmail.com" });
+  expect(result).toEqual({ id: 1, name: "glenn", email: "glenn@gmail.com",  role: "user" });
   expect(pool.query).toHaveBeenCalledWith(
-    "INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *",
-    ["glenn", "glenn@gmail.com"]
+    "INSERT INTO users (name, email, role) VALUES ($1, $2, $3) RETURNING *",
+    ["glenn", "glenn@gmail.com", 'user']
   );
 });

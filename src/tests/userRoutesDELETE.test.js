@@ -7,13 +7,10 @@ const app = express();
 app.use(express.json());
 app.use("/user", usersRouter);
 
-
-describe("Test GET /user/", () => {
-    test("Doit me renvoyer 200 et un tableau vide", async () => {
+describe("Test Delete /user/:id", () => {
+    test("Doit me retourner 200", async () => {
         const res = await request(app)
-        .get("/user/")
-
-    expect(res.statusCode).toBe(201);
-    expect(Array.isArray(res.body.data)).toBe(true);
-    });
+        .delete("/user/1")
+    expect(res.status).toBe(200);
+    })
 })

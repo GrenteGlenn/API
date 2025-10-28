@@ -20,9 +20,9 @@ export const allUsers = async (req, res, next) => {
 };
 
 export const createNewUser = async (req, res, next) => {
-  const { name, email } = req.body;
+  const { name, email, role } = req.body;
   try {
-    const newUser = await createUserService(name, email);
+    const newUser = await createUserService(name, email, role);
     handlerResponse(res, 201, "User created successfully", newUser);
   } catch (error) {
     return next(error);
